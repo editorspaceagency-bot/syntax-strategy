@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Syntax Media — Client Content Strategy</title>
+<title>EditingSpace — Client Content Strategy</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -308,7 +308,7 @@
 
   <header>
     <div>
-      <div class="logo">SYNTAX MEDIA <span>/ Strategy</span></div>
+      <div class="logo">EDITINGSPACE <span>/ Strategy</span></div>
       <h1>Client content strategy<small>Fill in all sections, then copy or print the brief.</small></h1>
     </div>
     <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
@@ -487,7 +487,7 @@
         <select id="ideation" onchange="updateProgress()">
           <option value="">Select...</option>
           <option value="Client generates all topics">Client generates all topics</option>
-          <option value="Syntax Media suggests, client approves">Syntax Media suggests, client approves</option>
+          <option value="EditingSpace suggests, client approves">EditingSpace suggests, client approves</option>
           <option value="Collaborative — weekly alignment call">Collaborative — weekly alignment call</option>
         </select>
       </div>
@@ -539,13 +539,13 @@
     </div>
     <div class="copy-success" id="copy-success">Copied to clipboard!</div>
     <div class="output-area" id="output-area">
-      <div class="output-label">CLIENT BRIEF — SYNTAX MEDIA</div>
+      <div class="output-label">CLIENT BRIEF — EDITINGSPACE</div>
       <pre id="output-text"></pre>
     </div>
   </div>
 
   <footer>
-    Syntax Media &nbsp;·&nbsp; syntaxmedia.io &nbsp;·&nbsp; Built for internal use
+    EditingSpace &nbsp;·&nbsp; editingspace.io &nbsp;·&nbsp; Built for internal use
   </footer>
 
 </div>
@@ -654,7 +654,7 @@
     ].filter(Boolean).join('\n');
 
     const text = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SYNTAX MEDIA — CLIENT CONTENT STRATEGY BRIEF
+EDITINGSPACE — CLIENT CONTENT STRATEGY BRIEF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 CLIENT         ${get('client-name')}
@@ -718,7 +718,7 @@ REVIEW & REPORTING
 
 ${get('notes') ? '─────────────────────────────────────────────────\nNOTES\n─────────────────────────────────────────────────\n\n  ' + get('notes') + '\n' : ''}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Prepared by Syntax Media · syntaxmedia.io
+Prepared by EditingSpace · editingspace.io
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
     document.getElementById('output-text').textContent = text;
