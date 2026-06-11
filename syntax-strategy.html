@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syntax Media — Client Content Strategy</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F6F3;
+    --surface: #FFFFFF;
+    --border: rgba(0,0,0,0.10);
+    --border-strong: rgba(0,0,0,0.18);
+    --text: #1A1A18;
+    --text-muted: #6B6B67;
+    --text-hint: #9B9B96;
+    --accent: #C25A0C;
+    --accent-bg: rgba(194,90,12,0.08);
+    --accent-border: rgba(194,90,12,0.35);
+    --teal: #007C7E;
+    --teal-bg: rgba(0,124,126,0.08);
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161614;
+      --surface: #1E1E1C;
+      --border: rgba(255,255,255,0.09);
+      --border-strong: rgba(255,255,255,0.16);
+      --text: #E8E6E0;
+      --text-muted: #9B9B96;
+      --text-hint: #6B6B67;
+      --accent: #E07030;
+      --accent-bg: rgba(224,112,48,0.10);
+      --accent-border: rgba(224,112,48,0.35);
+      --teal: #2AB8BA;
+      --teal-bg: rgba(42,184,186,0.10);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 32px 16px 64px;
+  }
+
+  .wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid var(--border-strong);
+  }
+
+  .logo {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-family: monospace;
+  }
+
+  .logo span { color: var(--text-muted); font-weight: 400; }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  h1 small {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .progress-wrap { margin-bottom: 28px; }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 11px; font-family: monospace; color: var(--text-muted); margin-bottom: 7px; }
+  .progress-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.35s ease; width: 0%; }
+
+  .section {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: 10px;
+    font-family: monospace;
+    letter-spacing: 0.13em;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    margin-top: 14px;
+  }
+
+  label:first-of-type { margin-top: 0; }
+
+  input[type=text], textarea, select {
+    width: 100%;
+    background: var(--bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 9px 11px;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type=text]:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+  }
+
+  textarea { resize: vertical; min-height: 68px; line-height: 1.55; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B67' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+    cursor: pointer;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  @media (max-width: 580px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
+
+  .pillar-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+  }
+
+  .pillar-label {
+    font-size: 10px;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .pillar-card label { margin-top: 10px; }
+  .pillar-card label:first-of-type { margin-top: 0; }
+
+  .bar-wrap { margin-bottom: 14px; }
+  .bar-track { height: 8px; background: var(--bg); border-radius: 4px; display: flex; overflow: hidden; border: 0.5px solid var(--border); }
+  .bar-seg { transition: flex 0.3s; }
+  .bar-legend { display: flex; gap: 14px; margin-top: 7px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; font-family: monospace; color: var(--text-muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .hook-row { display: grid; grid-template-columns: 110px 1fr; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .hook-type { font-size: 10px; font-family: monospace; color: var(--text-muted); background: var(--bg); border: 0.5px solid var(--border); padding: 8px 6px; border-radius: var(--radius-sm); text-align: center; line-height: 1.4; }
+
+  .rhythm-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 13px 14px; }
+  .rhythm-platform { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+
+  .notice {
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--teal-bg);
+    border: 0.5px solid var(--teal);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .notice strong { color: var(--teal); }
+
+  .btn-row { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+
+  button {
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  button:hover { background: var(--bg); }
+  button:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--accent-bg);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    flex: 1;
+  }
+
+  .btn-primary:hover { background: rgba(194,90,12,0.14); }
+
+  .btn-copy {
+    background: var(--teal-bg);
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
+  .output-area {
+    display: none;
+    margin-top: 16px;
+    background: var(--bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+  }
+
+  .output-area pre {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.7;
+  }
+
+  .output-label {
+    font-size: 10px;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .copy-success {
+    font-size: 11px;
+    color: var(--teal);
+    font-family: monospace;
+    display: none;
+    margin-top: 8px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--text-hint);
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .print-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .btn-row, .output-area, footer, .progress-wrap { display: none !important; }
+    .section { break-inside: avoid; border: 1px solid #ddd; }
+    input, textarea, select { border: none; background: transparent; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header>
+    <div>
+      <div class="logo">SYNTAX MEDIA <span>/ Strategy</span></div>
+      <h1>Client content strategy<small>Fill in all sections, then copy or print the brief.</small></h1>
+    </div>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="progress-label">0 of 7 sections complete</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">01 — Client info</div>
+    <div class="two-col">
+      <div>
+        <label>Client name</label>
+        <input type="text" id="client-name" placeholder="e.g. Ahmed Hassan" oninput="updateProgress()">
+      </div>
+      <div>
+        <label>Channel / brand name</label>
+        <input type="text" id="brand-name" placeholder="e.g. Ahmed Invests" oninput="updateProgress()">
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <label>Niche</label>
+        <select id="niche" onchange="updatePillars(); updateProgress()">
+          <option value="">Select niche...</option>
+          <option value="business">Business / Personal Brand</option>
+          <option value="finance">Finance / Investing</option>
+          <option value="lifestyle">Lifestyle / Vlog</option>
+        </select>
+      </div>
+      <div>
+        <label>Tier</label>
+        <select id="tier" onchange="updateProgress()">
+          <option value="">Select tier...</option>
+          <option value="Starter">Starter</option>
+          <option value="Growth">Growth</option>
+          <option value="Authority">Authority</option>
+        </select>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <label>Start date</label>
+        <input type="text" id="start-date" placeholder="e.g. July 1, 2026" oninput="updateProgress()">
+      </div>
+      <div>
+        <label>Monthly rate</label>
+        <input type="text" id="rate" placeholder="e.g. $800 / month">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">02 — Goals & audience</div>
+    <label>Primary goal (Month 1)</label>
+    <input type="text" id="goal" placeholder="e.g. Grow to 1,000 followers, establish credibility in the finance niche" oninput="updateProgress()">
+    <label>Target audience</label>
+    <input type="text" id="audience" placeholder="e.g. 25–35 year olds interested in stock investing, beginner to intermediate" oninput="updateProgress()">
+    <label>What they dislike / avoid</label>
+    <input type="text" id="dislikes" placeholder="e.g. No clickbait, no overly salesy content, no political topics" oninput="updateProgress()">
+    <label>Brand tone</label>
+    <input type="text" id="tone" placeholder="e.g. Confident but approachable, educational, no jargon">
+  </div>
+
+  <div class="section">
+    <div class="section-title">03 — Content pillars</div>
+    <div class="bar-wrap">
+      <div class="bar-track">
+        <div class="bar-seg" id="bar-p1" style="flex:50;background:#C25A0C;"></div>
+        <div class="bar-seg" id="bar-p2" style="flex:30;background:#007C7E;"></div>
+        <div class="bar-seg" id="bar-p3" style="flex:20;background:#6B6B6B;"></div>
+      </div>
+      <div class="bar-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#C25A0C"></div><span id="leg1">Pillar 1</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#007C7E"></div><span id="leg2">Pillar 2</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6B6B6B"></div><span id="leg3">Pillar 3</span></div>
+      </div>
+    </div>
+    <div class="three-col">
+      <div class="pillar-card">
+        <div class="pillar-label" style="color:#C25A0C">PILLAR 1</div>
+        <label>Type</label>
+        <input type="text" id="p1-type" placeholder="e.g. Authority" oninput="updateLegend(); updateProgress()">
+        <label>% split</label>
+        <input type="text" id="p1-pct" placeholder="50%" oninput="updateBarFromInputs()">
+        <label>Description</label>
+        <textarea id="p1-desc" placeholder="What kind of content goes here?" oninput="updateProgress()"></textarea>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-label" style="color:#007C7E">PILLAR 2</div>
+        <label>Type</label>
+        <input type="text" id="p2-type" placeholder="e.g. Education" oninput="updateLegend(); updateProgress()">
+        <label>% split</label>
+        <input type="text" id="p2-pct" placeholder="30%" oninput="updateBarFromInputs()">
+        <label>Description</label>
+        <textarea id="p2-desc" placeholder="What kind of content goes here?" oninput="updateProgress()"></textarea>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-label" style="color:#6B6B6B">PILLAR 3</div>
+        <label>Type</label>
+        <input type="text" id="p3-type" placeholder="e.g. Lifestyle" oninput="updateLegend(); updateProgress()">
+        <label>% split</label>
+        <input type="text" id="p3-pct" placeholder="20%" oninput="updateBarFromInputs()">
+        <label>Description</label>
+        <textarea id="p3-desc" placeholder="What kind of content goes here?" oninput="updateProgress()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">04 — Hook library</div>
+    <div class="notice"><strong>Important:</strong> Agree on hooks with the client before filming starts. This prevents revision rounds and is what separates a strategic editor from a commodity one.</div>
+    <div class="hook-row">
+      <div class="hook-type">Result hook</div>
+      <input type="text" id="hook1" placeholder="e.g. I grew from 0 to 10k in 60 days. Here's exactly how." oninput="updateProgress()">
+    </div>
+    <div class="hook-row">
+      <div class="hook-type">Problem hook</div>
+      <input type="text" id="hook2" placeholder="e.g. The one mistake killing your retention rate.">
+    </div>
+    <div class="hook-row">
+      <div class="hook-type">Insider hook</div>
+      <input type="text" id="hook3" placeholder="e.g. After editing 50 finance videos, I noticed this pattern.">
+    </div>
+    <div class="hook-row">
+      <div class="hook-type">Quick win hook</div>
+      <input type="text" id="hook4" placeholder="e.g. This one edit takes 30 sec and doubles watch time.">
+    </div>
+    <label>Custom hook (optional)</label>
+    <input type="text" id="hook5" placeholder="Any niche-specific hook formula for this client">
+  </div>
+
+  <div class="section">
+    <div class="section-title">05 — Posting rhythm</div>
+    <div class="three-col">
+      <div class="rhythm-card">
+        <div class="rhythm-platform">TikTok</div>
+        <label>Posts / week</label>
+        <input type="text" id="r-tiktok" placeholder="e.g. 4–5x" oninput="updateProgress()">
+        <label>Best days</label>
+        <input type="text" id="d-tiktok" placeholder="e.g. Mon–Fri">
+        <label>Best time</label>
+        <input type="text" id="t-tiktok" placeholder="e.g. 7–9pm">
+      </div>
+      <div class="rhythm-card">
+        <div class="rhythm-platform">Instagram Reels</div>
+        <label>Posts / week</label>
+        <input type="text" id="r-ig" placeholder="e.g. 3–4x" oninput="updateProgress()">
+        <label>Best days</label>
+        <input type="text" id="d-ig" placeholder="e.g. Mon, Wed, Fri">
+        <label>Best time</label>
+        <input type="text" id="t-ig" placeholder="e.g. 6–8pm">
+      </div>
+      <div class="rhythm-card">
+        <div class="rhythm-platform">YouTube Shorts</div>
+        <label>Posts / week</label>
+        <input type="text" id="r-yt" placeholder="e.g. 3x" oninput="updateProgress()">
+        <label>Best days</label>
+        <input type="text" id="d-yt" placeholder="e.g. Mon, Wed, Fri">
+        <label>Best time</label>
+        <input type="text" id="t-yt" placeholder="e.g. 12–2pm">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">06 — Operations & deadlines</div>
+    <div class="two-col">
+      <div>
+        <label>Who generates content topics?</label>
+        <select id="ideation" onchange="updateProgress()">
+          <option value="">Select...</option>
+          <option value="Client generates all topics">Client generates all topics</option>
+          <option value="Syntax Media suggests, client approves">Syntax Media suggests, client approves</option>
+          <option value="Collaborative — weekly alignment call">Collaborative — weekly alignment call</option>
+        </select>
+      </div>
+      <div>
+        <label>Raw footage deadline</label>
+        <input type="text" id="footage-deadline" placeholder="e.g. Every Monday by 6pm" oninput="updateProgress()">
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <label>Delivery turnaround</label>
+        <input type="text" id="turnaround" placeholder="e.g. 48 hours after receiving raw footage">
+      </div>
+      <div>
+        <label>Revision rounds included</label>
+        <input type="text" id="revisions" placeholder="e.g. 2 rounds — extra billed at $25/round">
+      </div>
+    </div>
+    <label>Preferred feedback method</label>
+    <input type="text" id="feedback" placeholder="e.g. Comments via Google Drive link, WhatsApp for quick feedback">
+  </div>
+
+  <div class="section">
+    <div class="section-title">07 — Review & reporting</div>
+    <div class="two-col">
+      <div>
+        <label>Month 1 review date</label>
+        <input type="text" id="review-date" placeholder="e.g. 30 days from start date" oninput="updateProgress()">
+      </div>
+      <div>
+        <label>Report type</label>
+        <select id="report-type">
+          <option value="No report (Starter tier)">No report (Starter tier)</option>
+          <option value="PDF performance report on the 1st">PDF performance report on the 1st (Growth / Authority)</option>
+        </select>
+      </div>
+    </div>
+    <label>KPIs to track</label>
+    <input type="text" id="kpis" placeholder="e.g. Views, watch time %, follower growth, profile visits per video">
+    <label>Notes for client</label>
+    <textarea id="notes" placeholder="Any extra context, agreements, or expectations to include in the brief..."></textarea>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Generate brief</div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="generateBrief()">Generate summary brief</button>
+      <button class="btn-copy" onclick="copyBrief()">Copy to clipboard</button>
+    </div>
+    <div class="copy-success" id="copy-success">Copied to clipboard!</div>
+    <div class="output-area" id="output-area">
+      <div class="output-label">CLIENT BRIEF — SYNTAX MEDIA</div>
+      <pre id="output-text"></pre>
+    </div>
+  </div>
+
+  <footer>
+    Syntax Media &nbsp;·&nbsp; syntaxmedia.io &nbsp;·&nbsp; Built for internal use
+  </footer>
+
+</div>
+
+<script>
+  const niches = {
+    business: {
+      p1: ['Authority', '50%', 'Results, frameworks, bold POV takes — content that builds credibility and positions the client as an expert.'],
+      p2: ['Education', '30%', 'How-tos, tips, and step-by-step breakdowns that deliver genuine value to the audience.'],
+      p3: ['Lifestyle', '20%', 'Behind the scenes, day-in-life, and process content that builds personal connection.']
+    },
+    finance: {
+      p1: ['Analysis', '40%', 'Market takes, predictions, and data-driven breakdowns that establish authority.'],
+      p2: ['Education', '40%', 'Investing basics, explainers, and beginner-friendly guides that grow the audience.'],
+      p3: ['Story', '20%', 'Portfolio updates, personal finance journey, and relatable money moments.']
+    },
+    lifestyle: {
+      p1: ['Aspirational', '30%', 'Experiences, destinations, and goals that inspire the audience.'],
+      p2: ['Relatable', '40%', 'Day-in-life, routines, and real vlog content that builds genuine connection.'],
+      p3: ['Entertainment', '30%', 'Challenges, trends, and reactions that capture attention and drive shares.']
+    }
+  };
+
+  function updatePillars() {
+    const n = document.getElementById('niche').value;
+    if (!n) return;
+    const d = niches[n];
+    const keys = Object.keys(d);
+    ['p1','p2','p3'].forEach((p, i) => {
+      document.getElementById(p+'-type').value = d[keys[i]][0];
+      document.getElementById(p+'-pct').value = d[keys[i]][1];
+      document.getElementById(p+'-desc').value = d[keys[i]][2];
+    });
+    updateBarFromInputs();
+    updateLegend();
+  }
+
+  function parsePct(str) { return parseFloat(str) || 0; }
+
+  function updateBarFromInputs() {
+    const p1 = parsePct(document.getElementById('p1-pct').value);
+    const p2 = parsePct(document.getElementById('p2-pct').value);
+    const p3 = parsePct(document.getElementById('p3-pct').value);
+    document.getElementById('bar-p1').style.flex = p1 || 1;
+    document.getElementById('bar-p2').style.flex = p2 || 1;
+    document.getElementById('bar-p3').style.flex = p3 || 1;
+    updateLegend();
+  }
+
+  function updateLegend() {
+    document.getElementById('leg1').textContent = document.getElementById('p1-type').value || 'Pillar 1';
+    document.getElementById('leg2').textContent = document.getElementById('p2-type').value || 'Pillar 2';
+    document.getElementById('leg3').textContent = document.getElementById('p3-type').value || 'Pillar 3';
+  }
+
+  const requiredFields = ['client-name','brand-name','niche','tier','goal','audience','p1-type','p2-type','p3-type','hook1','r-tiktok','ideation','footage-deadline','review-date'];
+
+  const sectionGroups = [
+    ['client-name','brand-name','niche','tier'],
+    ['goal','audience'],
+    ['p1-type','p2-type','p3-type'],
+    ['hook1'],
+    ['r-tiktok'],
+    ['ideation','footage-deadline'],
+    ['review-date']
+  ];
+
+  function updateProgress() {
+    const filled = requiredFields.filter(id => {
+      const el = document.getElementById(id);
+      return el && el.value.trim() !== '';
+    }).length;
+    const pct = Math.round((filled / requiredFields.length) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+    const completeSecs = sectionGroups.filter(group =>
+      group.some(id => { const el = document.getElementById(id); return el && el.value.trim(); })
+    ).length;
+    document.getElementById('progress-label').textContent = completeSecs + ' of 7 sections complete';
+    updateLegend();
+  }
+
+  function get(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function generateBrief() {
+    if (!get('client-name') || !get('goal')) {
+      alert('Please fill in at least the client name and primary goal before generating.');
+      return;
+    }
+
+    const hooks = [
+      get('hook1') ? '  Result hook:    ' + get('hook1') : null,
+      get('hook2') ? '  Problem hook:   ' + get('hook2') : null,
+      get('hook3') ? '  Insider hook:   ' + get('hook3') : null,
+      get('hook4') ? '  Quick win hook: ' + get('hook4') : null,
+      get('hook5') ? '  Custom hook:    ' + get('hook5') : null,
+    ].filter(Boolean).join('\n');
+
+    const rhythm = [
+      get('r-tiktok') ? `  TikTok:            ${get('r-tiktok')}${get('d-tiktok') ? ' · ' + get('d-tiktok') : ''}${get('t-tiktok') ? ' · ' + get('t-tiktok') : ''}` : null,
+      get('r-ig')     ? `  Instagram Reels:   ${get('r-ig')}${get('d-ig') ? ' · ' + get('d-ig') : ''}${get('t-ig') ? ' · ' + get('t-ig') : ''}` : null,
+      get('r-yt')     ? `  YouTube Shorts:    ${get('r-yt')}${get('d-yt') ? ' · ' + get('d-yt') : ''}${get('t-yt') ? ' · ' + get('t-yt') : ''}` : null,
+    ].filter(Boolean).join('\n');
+
+    const text = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SYNTAX MEDIA — CLIENT CONTENT STRATEGY BRIEF
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLIENT         ${get('client-name')}
+BRAND          ${get('brand-name')}
+NICHE          ${get('niche')}
+TIER           ${get('tier')}
+START DATE     ${get('start-date') || '—'}
+MONTHLY RATE   ${get('rate') || '—'}
+
+─────────────────────────────────────────────────
+GOALS & AUDIENCE
+─────────────────────────────────────────────────
+
+Primary goal:    ${get('goal')}
+Target audience: ${get('audience')}
+Avoid:           ${get('dislikes') || '—'}
+Brand tone:      ${get('tone') || '—'}
+
+─────────────────────────────────────────────────
+CONTENT PILLARS
+─────────────────────────────────────────────────
+
+  Pillar 1 — ${get('p1-type')} (${get('p1-pct')})
+  ${get('p1-desc')}
+
+  Pillar 2 — ${get('p2-type')} (${get('p2-pct')})
+  ${get('p2-desc')}
+
+  Pillar 3 — ${get('p3-type')} (${get('p3-pct')})
+  ${get('p3-desc')}
+
+─────────────────────────────────────────────────
+HOOK LIBRARY (agreed before filming)
+─────────────────────────────────────────────────
+
+${hooks || '  No hooks filled in yet.'}
+
+─────────────────────────────────────────────────
+POSTING RHYTHM
+─────────────────────────────────────────────────
+
+${rhythm || '  No rhythm filled in yet.'}
+
+─────────────────────────────────────────────────
+OPERATIONS
+─────────────────────────────────────────────────
+
+  Topic ideation:      ${get('ideation') || '—'}
+  Raw footage due:     ${get('footage-deadline') || '—'}
+  Delivery turnaround: ${get('turnaround') || '—'}
+  Revision rounds:     ${get('revisions') || '—'}
+  Feedback method:     ${get('feedback') || '—'}
+
+─────────────────────────────────────────────────
+REVIEW & REPORTING
+─────────────────────────────────────────────────
+
+  Month 1 review:  ${get('review-date') || '—'}
+  Report type:     ${get('report-type') || '—'}
+  KPIs to track:   ${get('kpis') || '—'}
+
+${get('notes') ? '─────────────────────────────────────────────────\nNOTES\n─────────────────────────────────────────────────\n\n  ' + get('notes') + '\n' : ''}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prepared by Syntax Media · syntaxmedia.io
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+    document.getElementById('output-text').textContent = text;
+    document.getElementById('output-area').style.display = 'block';
+    document.getElementById('output-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyBrief() {
+    const text = document.getElementById('output-text').textContent;
+    if (!text) { generateBrief(); return; }
+    navigator.clipboard.writeText(text).then(() => {
+      const el = document.getElementById('copy-success');
+      el.style.display = 'block';
+      setTimeout(() => el.style.display = 'none', 2500);
+    });
+  }
+</script>
+</body>
+</html>
